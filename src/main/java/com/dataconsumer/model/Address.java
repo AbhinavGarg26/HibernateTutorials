@@ -1,18 +1,32 @@
 package com.dataconsumer.model;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "ADDRESS")
+@NamedQueries({ @NamedQuery(name = "@HQL_GET_ALL_ADDRESS", 
+query = "from Address") })
+@NamedNativeQueries({ @NamedNativeQuery(name = "@SQL_GET_ALL_ADDRESS", 
+query = "select emp_id, address_line1, city, zipcode from Address") })
+//@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="employee")
+@Access(value=AccessType.FIELD)
 public class Address {
 
 	@Id
@@ -35,6 +49,12 @@ public class Address {
 	@PrimaryKeyJoinColumn
 	private Employee employee;
 
+	@Override
+	public String toString() {
+		return "AddressLine1= " + addressLine1 + ", City=" + city
+				+ ", Zipcode=" + zipcode;
+	}
+	
 	public long getId() {
 		return id;
 	}

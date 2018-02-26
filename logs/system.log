@@ -1,0 +1,33 @@
+2018-02-25 16:06:50,309 +0530 [main] INFO  (JavaReflectionManager.java:66) - HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+2018-02-25 16:06:50,330 +0530 [main] INFO  (Version.java:54) - HHH000412: Hibernate Core {4.3.5.Final}
+2018-02-25 16:06:50,338 +0530 [main] INFO  (Environment.java:239) - HHH000206: hibernate.properties not found
+2018-02-25 16:06:50,342 +0530 [main] INFO  (Environment.java:346) - HHH000021: Bytecode provider name : javassist
+2018-02-25 16:06:50,409 +0530 [main] INFO  (Configuration.java:2073) - HHH000043: Configuring from resource: hibernate-annotation.cfg.xml
+2018-02-25 16:06:50,410 +0530 [main] INFO  (Configuration.java:2092) - HHH000040: Configuration resource: hibernate-annotation.cfg.xml
+2018-02-25 16:06:57,526 +0530 [main] INFO  (Configuration.java:757) - HHH000221: Reading mappings from resource: named-queries.hbm.xml
+2018-02-25 16:07:28,834 +0530 [main] INFO  (Configuration.java:2214) - HHH000041: Configured SessionFactory: null
+2018-02-25 16:07:29,029 +0530 [main] ERROR (HibernateUtil.java:59) - Hibernate Annotation serviceRegistry created
+2018-02-25 16:07:29,046 +0530 [main] WARN  (DriverManagerConnectionProviderImpl.java:93) - HHH000402: Using Hibernate built-in connection pool (not for production use!)
+2018-02-25 16:07:29,054 +0530 [main] INFO  (DriverManagerConnectionProviderImpl.java:166) - HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost/TestDB]
+2018-02-25 16:07:29,055 +0530 [main] INFO  (DriverManagerConnectionProviderImpl.java:175) - HHH000046: Connection properties: {user=abhinav, password=****}
+2018-02-25 16:07:29,055 +0530 [main] INFO  (DriverManagerConnectionProviderImpl.java:180) - HHH000006: Autocommit mode: false
+2018-02-25 16:07:29,058 +0530 [main] INFO  (DriverManagerConnectionProviderImpl.java:102) - HHH000115: Hibernate connection pool size: 20 (min=1)
+2018-02-25 16:07:29,373 +0530 [main] INFO  (Dialect.java:145) - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2018-02-25 16:07:29,389 +0530 [main] INFO  (LobCreatorBuilder.java:97) - HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+2018-02-25 16:07:29,739 +0530 [main] INFO  (TransactionFactoryInitiator.java:62) - HHH000399: Using default transaction strategy (direct JDBC transactions)
+2018-02-25 16:07:29,753 +0530 [main] INFO  (ASTQueryTranslatorFactory.java:47) - HHH000397: Using ASTQueryTranslatorFactory
+2018-02-25 16:07:35,272 +0530 [main] INFO  (UpdateTimestampsCache.java:72) - HHH000250: Starting update timestamps cache at region: org.hibernate.cache.spi.UpdateTimestampsCache
+2018-02-25 16:07:35,280 +0530 [main] INFO  (StandardQueryCache.java:90) - HHH000248: Starting query cache at region: org.hibernate.cache.internal.StandardQueryCache
+2018-02-25 16:07:36,320 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::1,San Jose
+2018-02-25 16:07:36,320 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::2,Santa Clara
+2018-02-25 16:07:36,321 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::3,Bangalore
+2018-02-25 16:07:36,321 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::4,New City
+2018-02-25 16:07:36,321 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::6,Test City
+2018-02-25 16:07:36,321 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::8,Test City
+2018-02-25 16:07:36,321 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::10,Test City
+2018-02-25 16:07:36,321 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::12,Test City
+2018-02-25 16:07:36,322 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::14,Test City
+2018-02-25 16:07:36,322 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::15,Test City
+2018-02-25 16:07:36,322 +0530 [main] INFO  (HibernateLog4jExample.java:37) - List of Employees::17,Updated City
+2018-02-25 16:07:36,365 +0530 [main] INFO  (DriverManagerConnectionProviderImpl.java:281) - HHH000030: Cleaning up connection pool [jdbc:mysql://localhost/TestDB]
+2018-02-25 16:07:36,368 +0530 [main] INFO  (HibernateLog4jExample.java:42) - DONE

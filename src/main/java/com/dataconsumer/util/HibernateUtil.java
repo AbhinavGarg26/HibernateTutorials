@@ -2,6 +2,7 @@ package com.dataconsumer.util;
 
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -19,6 +20,8 @@ public class HibernateUtil {
 	
 	//Property based configuration
 	private static SessionFactory sessionJavaConfigFactory;
+	
+	private static Logger logger = Logger.getLogger(HibernateUtil.class);
 
     private static SessionFactory buildSessionFactory() {
         try {
@@ -26,9 +29,11 @@ public class HibernateUtil {
         	Configuration configuration = new Configuration();
         	configuration.configure("hibernate.cfg.xml");
         	System.out.println("Hibernate Configuration loaded");
+        	logger.info("Hibernate Configuration loaded");
         	
         	ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         	System.out.println("Hibernate serviceRegistry created");
+        	logger.info("Hibernate serviceRegistry loaded");
         	
         	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         	
@@ -37,6 +42,7 @@ public class HibernateUtil {
         catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
+            logger.error("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -50,6 +56,7 @@ public class HibernateUtil {
         	
         	ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         	System.out.println("Hibernate Annotation serviceRegistry created");
+        	logger.error("Hibernate Annotation serviceRegistry created");
         	
         	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         	
@@ -58,6 +65,7 @@ public class HibernateUtil {
         catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
+            logger.error("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
 	}
@@ -90,6 +98,7 @@ public class HibernateUtil {
     	}
         catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
+            logger.error("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
 	}

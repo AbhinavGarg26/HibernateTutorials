@@ -2,6 +2,8 @@ package com.dataconsumer.model;
 
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,11 +13,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name="Employee", 
 	   uniqueConstraints={@UniqueConstraint(columnNames={"ID"})})
+//@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="employee")
+@Access(value=AccessType.FIELD)
 public class Employee {
 
 	@Id
@@ -39,6 +45,12 @@ public class Employee {
 	@Cascade(value = org.hibernate.annotations.CascadeType.ALL)
 	private Address address;
 
+	@Override
+	public String toString() {
+		return "Id= " + id + ", Name= " + name + ", Salary= " + salary
+				+ ", {Address= " + address + "}";
+	}
+	
 	public long getId() {
 		return id;
 	}

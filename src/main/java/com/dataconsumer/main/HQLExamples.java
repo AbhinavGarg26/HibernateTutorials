@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,6 +21,8 @@ public class HQLExamples {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		
+		
+		try {
 		//Prep work
 		SessionFactory sessionFactory = HibernateUtil.getSessionAnnotationFactory();
 		Session session = sessionFactory.getCurrentSession();
@@ -101,8 +104,8 @@ public class HQLExamples {
 		
 		
 		// Use of SQL 
-		query = session.createSQLQuery("select emp_id, emp_name, emp_salary from Employee");
-		List<Object[]> rows = query.list();
+		SQLQuery querySql = session.createSQLQuery("select id, name, salary from Employee");
+		List<Object[]> rows = querySql.list();
 		for(Object[] row : rows){
 			Employee empSql = new Employee();
 			empSql.setId(Long.parseLong(row[0].toString()));
@@ -112,11 +115,11 @@ public class HQLExamples {
 		}
 		
 		//Get All Employees - addScalar example
-		query = session.createSQLQuery("select emp_id, emp_name, emp_salary from Employee")
-				.addScalar("emp_id", new LongType())
-				.addScalar("emp_name", new StringType())
-				.addScalar("emp_salary", new DoubleType());
-		rows = query.list();
+		querySql = session.createSQLQuery("select id, name, salary from Employee")
+				.addScalar("id", new LongType())
+				.addScalar("name", new StringType())
+				.addScalar("salary", new DoubleType());
+		rows = querySql.list();
 		for(Object[] row : rows){
 			Employee empScaler = new Employee();
 			empScaler.setId(Long.parseLong(row[0].toString()));
@@ -125,12 +128,75 @@ public class HQLExamples {
 			System.out.println(empScaler);
 		}
 		
+		//Multiple Tables
+		query = session.createSQLQuery("select e.id, name, salary,address_line1, city,zipcode from Employee e, Address a where a.emp_id=e.id");
+			rows = query.list();
+			for(Object[] row : rows){
+				Employee empMultipleTable = new Employee();
+				empMultipleTable.setId(Long.parseLong(row[0].toString()));
+				empMultipleTable.setName(row[1].toString());
+				empMultipleTable.setSalary(Double.parseDouble(row[2].toString()));
+				Address address = new Address();
+				address.setAddressLine1(row[3].toString());
+				address.setCity(row[4].toString());
+				address.setZipcode(row[5].toString());
+				empMultipleTable.setAddress(address);
+				System.out.println(empMultipleTable);
+		}
 		
+		//Join example with addEntity and addJoin
+			query = session.createSQLQuery("select {e.*}, {a.*} from Employee e join Address a ON e.id=a.emp_id")
+					.addEntity("e",Employee.class)
+					.addJoin("a","e.address");
+			rows = query.list();
+			for (Object[] row : rows) {
+			    for(Object obj : row) {
+			    	System.out.print(obj + "::");
+			    }
+			    System.out.println("\n");
+			}
+			//Above join returns both Employee and Address Objects in the array
+			for (Object[] row : rows) {
+				Employee e = (Employee) row[0];
+				System.out.println("Employee Info::"+e);
+				Address a = (Address) row[1];
+				System.out.println("Address Info::"+a);
+			}
+			
+		//With Parameters
+			query = session
+					.createSQLQuery("select id, name, salary from Employee where id = ?");
+			List<Object[]> empData = query.setLong(0, 1L).list();
+			for (Object[] row : empData) {
+				Employee empParam = new Employee();
+				empParam.setId(Long.parseLong(row[0].toString()));
+				empParam.setName(row[1].toString());
+				empParam.setSalary(Double.parseDouble(row[2].toString()));
+				System.out.println(empParam);
+			}
+
+			query = session
+					.createSQLQuery("select id, name, salary from Employee where id = :id");
+			empData = query.setLong("id", 2L).list();
+			for (Object[] row : empData) {
+				Employee empParam2 = new Employee();
+				empParam2.setId(Long.parseLong(row[0].toString()));
+				empParam2.setName(row[1].toString());
+				empParam2.setSalary(Double.parseDouble(row[2].toString()));
+				System.out.println(empParam2);
+			}
+			
 		//rolling back to save the test data
 		tx.rollback();
 		
 		//closing hibernate resources
 		sessionFactory.close();
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Exception occured: " + e.getMessage());
+		}
+		
 	}
 
 }

@@ -6,13 +6,29 @@
 	<session-factory>
 		<!-- Database connection properties - Driver, URL, user, password -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<!-- 
 		<property name="hibernate.connection.url">jdbc:mysql://localhost/TestDB</property>
 		<property name="hibernate.connection.username">abhinav</property>
 		<property name="hibernate.connection.password">password</property>
+		-->
+		
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.datasource">java:comp/env/jdbc/MyLocalDB</property>
 		
 		<!-- org.hibernate.HibernateException: No CurrentSessionContext configured! -->
 		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">true</property>
+		
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		
+		<!-- For singleton factory -->
+		<!-- <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>
+		 -->
+		 
+		 <!-- enable second level cache and query cache -->
+		 <property name="hibernate.cache.use_second_level_cache">true</property>
+		 <property name="hibernate.cache.use_query_cache">true</property>
+ 		 <property name="net.sf.ehcache.configurationResourceName">/myehcache.xml</property>
 		
 		<!-- Mapping with model class containing annotations -->
 		<mapping class="com.dataconsumer.model.Employee"/>
@@ -21,5 +37,6 @@
 		<mapping class="com.dataconsumer.model.Cart"/>
         <mapping class="com.dataconsumer.model.Items"/>
         <mapping class="com.dataconsumer.model.Address"/>
+        <mapping resource="named-queries.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>
